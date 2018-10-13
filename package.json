@@ -1,0 +1,34 @@
+{
+  "name": "fc_carousell_crawler",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/timeFunc.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "clean": "rm -rf ./dist",
+    "test": "node ./dist/timeFunc.test.js",
+    "func-create": ". env-setup.sh && fcli function create --service-name ${SERVICE_NAME} --function-name ${FUNCTION_NAME} --handler ${HANDLER} --runtime nodejs8 --code-dir .",
+    "func-update": ". env-setup.sh && fcli function update --service-name ${SERVICE_NAME} --function-name ${FUNCTION_NAME} --handler ${HANDLER} --runtime nodejs8 --code-dir .",
+    "func-invoke": ". env-setup.sh && fcli function invoke --service-name ${SERVICE_NAME} --function-name ${FUNCTION_NAME}",
+    "func-logs": ". env-setup.sh && fcli function logs --service-name ${SERVICE_NAME} --function-name ${FUNCTION_NAME} --start $(date -v -5M -u '+%Y-%m-%dT%H:%M:%SZ')",
+    "func-live-test": "npm run build && npm run func-update && npm run func-invoke && npm run func-logs",
+    "trigger-create": ". env-setup.sh && fcli trigger create --service-name ${SERVICE_NAME} --function-name ${FUNCTION_NAME} --trigger-name ${TRIGGER_NAME} --type ${TRIGGER_TYPE} --config ${TRIGGER_CONFIG}",
+    "trigger-update": ". env-setup.sh && fcli trigger update --service-name ${SERVICE_NAME} --function-name ${FUNCTION_NAME} --trigger-name ${TRIGGER_NAME} --trigger-config ${TRIGGER_CONFIG}"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "raw-body": "^2.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^10.5.2",
+    "ts-node": "^7.0.0",
+    "typescript": "^2.9.2"
+  }
+}

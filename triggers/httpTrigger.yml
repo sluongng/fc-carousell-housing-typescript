@@ -1,0 +1,3 @@
+triggerConfig:
+    authType: anonymous
+    methods: ["GET", "POST"]

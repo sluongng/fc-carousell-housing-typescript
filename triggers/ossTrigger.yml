@@ -1,0 +1,8 @@
+triggerConfig:
+    events:
+        - oss:ObjectCreated:PostObject
+        - oss:ObjectCreated:PutObject
+    filter:
+        key:
+            prefix: source/
+            suffix: .png

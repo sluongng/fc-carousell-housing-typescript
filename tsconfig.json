@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "baseUrl": "src",
+        "paths": {
+            "./src/*": [
+                "../dist/*"
+            ]
+        },
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "outDir": "dist/",
+        "sourceMap": true,
+        "target": "es2016",
+        "typeRoots": [
+            "./src/@types",
+            "./node_modules/@types"
+        ]
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "./src/types",
+        "node_modules"
+    ]
+}

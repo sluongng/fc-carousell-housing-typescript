@@ -1,0 +1,14 @@
+triggerConfig:
+    sourceConfig:
+        project: "etl"
+        logstore: "etl-log"
+    jobConfig:
+        maxRetryTime: 3
+        triggerInterval: 60
+    functionParameter:
+        a: "b"
+        c: "d"
+    logConfig:
+        project: "ali-fc-test"
+        logstore: "test-store"
+    enable: true
