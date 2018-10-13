@@ -44,7 +44,7 @@ declare module "dingtalk-chatbot" {
         at?: AtTag,
     }
 
-    export interface BaseActionCard {
+    interface BaseActionCard {
         title: string,
         text: string,
         hideAvatar?: "0" | "1",
@@ -83,7 +83,7 @@ declare module "dingtalk-chatbot" {
         },
     }
 
-    export interface BaseResponse {
+    export interface DingtalkResponse {
         errcode: number,
         errmsg: string,
     }

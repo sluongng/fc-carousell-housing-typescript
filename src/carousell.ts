@@ -1,15 +1,21 @@
-import { Callback, CloudFunctionContext, TimeEventRecord, TimeHandler } from "aliyun-function-compute";
-import { TextMessage, ActionCardMessage, SingleActionCard, BaseResponse } from "dingtalk-chatbot";
+import {
+    Callback,
+    CloudFunctionContext,
+    TimeEventRecord,
+    TimeHandler,
+} from "aliyun-function-compute";
 import Axios from "axios";
+import {
+    AbstractMessage,
+    DingtalkResponse,
+    TextMessage,
+} from "dingtalk-chatbot";
 
-export var handler: TimeHandler = function (
+export let handler: TimeHandler = (
     event: TimeEventRecord,
     context: CloudFunctionContext,
-    callback: Callback<void>
-) {
-    const DingtalkChatbotHost = "https://oapi.dingtalk.com/robot/send?access_token=";
-    const ChatbotAccessToken = "43d9b2506bcdd1f8d51c68bd94a73c532884789615eefdd75c12cdae42051019";
-    const DingtalkWebHook = DingtalkChatbotHost + ChatbotAccessToken;
+    callback: Callback<string>,
+) => {
 
     const textMessage: TextMessage = {
         msgtype: "text",
@@ -18,16 +24,27 @@ export var handler: TimeHandler = function (
         },
     };
 
-    Axios.post<BaseResponse>(DingtalkWebHook, textMessage)
-        .then(response => {
-            if(response.data.errcode === 0) {
-                callback("Message sent");
+    SendToDingtalk(textMessage)
+        .then(() => callback(null, "success"))
+        .catch((reason) => callback(reason));
+};
+
+async function SendToDingtalk<T extends AbstractMessage>(message: T): Promise<void> {
+    const DINGTALK_CHATBOT_HOST = "https://oapi.dingtalk.com/robot/send?access_token=";
+
+    // TODO: Read Access Token via env variable
+    const CHATBOT_ACCESS_TOKEN = "43d9b2506bcdd1f8d51c68bd94a73c532884789615eefdd75c12cdae42051019";
+
+    return Axios.post<DingtalkResponse>(DINGTALK_CHATBOT_HOST + CHATBOT_ACCESS_TOKEN, message)
+        .then((response) => {
+            if (response.data.errcode === 0) {
+                console.info("Sent to Dingtalk");
             } else {
-                callback("Request failed: " + response.data.errmsg);
+                console.error(`Sent failed with code ${response.data.errcode} message ${response.data.errmsg}`);
             }
         })
-        .catch(reason => {
+        .catch((reason) => {
             console.error(reason);
-            callback(new Error(reason))
+            return reason;
         });
-};
+}

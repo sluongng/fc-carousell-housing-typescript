@@ -340,6 +340,6 @@ declare module "aliyun-function-compute" {
 
     export type APIGatewayHandler = Handler<APIGatewayEventRecord, void>;
 
-    export type TimeHandler = Handler<TimeEventRecord, void>;
+    export type TimeHandler = Handler<TimeEventRecord, string>;
 
 }
