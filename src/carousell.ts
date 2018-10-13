@@ -1,6 +1,5 @@
 import { Callback, CloudFunctionContext, TimeEventRecord, TimeHandler } from "aliyun-function-compute";
 import { TextMessage, ActionCardMessage, SingleActionCard, BaseResponse } from "dingtalk-chatbot";
-import "axios";
 import Axios from "axios";
 
 export var handler: TimeHandler = function (
