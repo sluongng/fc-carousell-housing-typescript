@@ -56,8 +56,7 @@ export let handler: TimeHandler = (
 
                 const url = BASE_URL + cardTag("a").attr("href");
 
-                const cardMessage
-                = `
+                const cardMessage = `
 ${title}
 Type: ${roomType}
 Pic: ${imgUrl}
